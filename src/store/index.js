@@ -96,7 +96,7 @@ const store = createStore({
         async checkLoginStatus(state) {
             let token = localStorage.getItem('USER_TOKEN')
             if (token === null) {
-                this.$router.push({ name: 'Login' })
+                router.push({ name: 'Login' })
             } else {
                 // 判斷是否過期
                 const now = Math.floor(Date.now() / 1000)

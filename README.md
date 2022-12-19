@@ -1,3 +1,21 @@
+# 檢核點
+## 前台-登入前
+ - 註冊、登入功能
+ - 首頁景點列表
+ - 景點詳細頁面
+
+## 前台-登入後
+ - 景點詳細頁面 - 景點收藏功能
+ - 觀看個人收藏頁面
+
+## 後台-登入後
+
+ - 登入後會依照權限判斷轉址到後台頁面
+ - 首頁顯示景點列表
+ - 新增景點
+ - 編輯景點
+ - 刪除景點
+
 # Vite + Vuex + Tailwind CSS (boilerplate)
 
 ### ⚠️ We have moved to another [Vue 3 boilerplate + Vite, Pinia, Vue Router & Tailwind CSS](https://github.com/richardevcom/vue3-boilerplate) - this package is not maintained anymore.

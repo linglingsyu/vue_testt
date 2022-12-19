@@ -18,6 +18,12 @@
       "password": "$2a$10$bGWgBL4JeYQY.0QfyICZaeoo1FdYp3CjOxsWxBgEWHUlTpgHTdtM.",
       "role": "user",
       "id": 2
+    },
+    {
+      "email": "zzxcv@hotmail.com",
+      "password": "$2a$10$1UMLB4VhFcHxAj53fSthMO6Bb8oH.WoM3.hTVZAQd9GEQSK9lAuIW",
+      "role": "user",
+      "id": 3
     }
   ]
 }

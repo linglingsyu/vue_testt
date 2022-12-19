@@ -1,4 +1,4 @@
-<template>asdasdasd</template>
+<template>home</template>
 
 <script>
 export default {

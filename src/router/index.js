@@ -3,6 +3,7 @@ import Home from '/src/components/Home.vue'
 import Admin from '/src/views/Admin.vue'
 import Login from '/src/views/Login.vue'
 import SignUp from '/src/views/SignUp.vue'
+import Add from '/src/views/Add.vue'
 const routes = [
     {
         path: '/',
@@ -30,6 +31,14 @@ const routes = [
             requiresAuth: true,
         },
     },
+    {
+        path: '/add',
+        name: 'Add',
+        component: Add,
+        meta: {
+            requiresAuth: true,
+        },
+    },
 ]
 const router = createRouter({
     history: createWebHistory(),
@@ -38,7 +47,8 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
     if (to.matched.some((record) => record.meta.requiresAuth)) {
-        if (localStorage.getItem('USER_TOKEN') == null) {
+        console.log(localStorage.getItem('USER_TOKEN'))
+        if (localStorage.getItem('USER_TOKEN') === undefined) {
             next({
                 path: '/login',
                 params: { nextUrl: to.fullPath },
