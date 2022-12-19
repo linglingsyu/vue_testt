@@ -10,7 +10,7 @@
                 <label for="password" class="form-label">密碼</label>
                 <input type="password" class="form-control" id="password" v-model="pw" />
             </div>
-            <button type="submit" class="btn btn-primary">送出</button>
+            <button type="submit" class="btn btn-primary" @click.prevent="signUp">送出</button>
         </form>
     </div>
 </template>
@@ -24,13 +24,19 @@ export default {
         }
     },
     methods: {
-        signUp() {
-            if (email.length > 0 && this.pw.length > 0) {
+        async signUp() {
+            if (this.email.length > 0 && this.pw.length > 0) {
                 const data = {
                     email: this.email,
-                    pw: this.pw,
-                    role: 'admin',
-                    collect: [],
+                    password: this.pw,
+                    role: 'user',
+                }
+                const res = await this.$store.dispatch('SignUp', data)
+                if (res.status === 200 || res.status === 201) {
+                    alert('註冊成功！')
+                    location.href = '/login'
+                } else {
+                    alert(res.data)
                 }
             }
         },

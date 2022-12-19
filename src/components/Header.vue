@@ -15,11 +15,21 @@
             </button>
             <div class="collapse navbar-collapse flex-grow-0" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">登入</a>
+                    <li class="nav-item" v-if="!isLogin">
+                        <router-link class="nav-link" :to="{ name: 'Login' }">登入</router-link>
+                        <!-- <a class="nav-link" href="/login">登入</a> -->
                     </li>
+                    <template v-else>
+                        <!-- <li class="nav-item">
+                            <a class="nav-link" href="">Hello !!</a>
+                        </li> -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" @click.prevent="logout">登出</a>
+                        </li>
+                    </template>
                     <li class="nav-item">
-                        <a href="About" class="btn btn-primary">免費註冊</a>
+                        <router-link class="btn btn-primary" :to="{ name: 'SignUp' }">免費註冊</router-link>
+                        <!-- <a href="" class="btn btn-primary">免費註冊</a> -->
                     </li>
                     <!-- <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Dropdown </a>
@@ -35,3 +45,23 @@
         </div>
     </nav>
 </template>
+
+<script>
+export default {
+    data() {
+        return {
+            isLogin: false,
+        }
+    },
+    async created() {},
+    async mounted() {
+        this.isLogin = await this.$store.dispatch('checkLoginStatus')
+        console.log(this.isLogin)
+    },
+    methods: {
+        logout() {
+            this.$store.dispatch('logout')
+        },
+    },
+}
+</script>

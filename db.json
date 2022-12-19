@@ -1,20 +1,23 @@
 {
-    "posts": [
-        {
-            "id": 1,
-            "title": "json-server",
-            "author": "typicode"
-        }
-    ],
-    "comments": [
-        {
-            "id": 1,
-            "body": "some comment",
-            "postId": 1
-        }
-    ],
-    "profile": {
-        "name": "typicode"
+  "posts": [
+    {
+      "id": 1,
+      "title": "json-server",
+      "author": "typicode"
+    }
+  ],
+  "users": [
+    {
+      "email": "admin@gmail.com",
+      "password": "$2a$10$kc/ob/f6I9lBByG5jG6IheDL6FpwqbHargq/eGqvQeSZMBCYyTAWq",
+      "role": "admin",
+      "id": 1
     },
-    "users": []
+    {
+      "email": "zzxcv741@hotmail.com",
+      "password": "$2a$10$bGWgBL4JeYQY.0QfyICZaeoo1FdYp3CjOxsWxBgEWHUlTpgHTdtM.",
+      "role": "user",
+      "id": 2
+    }
+  ]
 }
