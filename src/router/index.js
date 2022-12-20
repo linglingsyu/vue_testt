@@ -4,6 +4,8 @@ import Admin from '/src/views/Admin.vue'
 import Login from '/src/views/Login.vue'
 import SignUp from '/src/views/SignUp.vue'
 import Add from '/src/views/Add.vue'
+import Post from '/src/views/Post.vue'
+import Edit from '/src/views/Edit.vue'
 const routes = [
     {
         path: '/',
@@ -39,6 +41,22 @@ const routes = [
             requiresAuth: true,
         },
     },
+    {
+        path: '/post/:id',
+        name: 'Post',
+        component: Post,
+        meta: {
+            requiresAuth: true,
+        },
+    },
+    {
+        path: '/edit/:id',
+        name: 'Edit',
+        component: Edit,
+        meta: {
+            requiresAuth: true,
+        },
+    },
 ]
 const router = createRouter({
     history: createWebHistory(),
@@ -47,7 +65,6 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
     if (to.matched.some((record) => record.meta.requiresAuth)) {
-        console.log(localStorage.getItem('USER_TOKEN'))
         if (localStorage.getItem('USER_TOKEN') === undefined) {
             next({
                 path: '/login',

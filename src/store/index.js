@@ -21,6 +21,10 @@ API.interceptors.request.use(
 const Types = {
     SET_USER_TOKEN: 'SET_USER_TOKEN',
     SET_USER_DATA: 'SET_USER_DATA',
+    ADD_POST: 'ADD_POST',
+    SET_POST: 'SET_POST',
+    SET_POST_DATA: 'SET_POST_DATA',
+    DEL_POST_DATA: 'DEL_POST_DATA',
 }
 
 const store = createStore({
@@ -28,8 +32,13 @@ const store = createStore({
         userToken: null,
         userData: null,
         isAdmin: false,
+        postList: [],
+        postData: [],
     },
-    getters: {},
+    getters: {
+        postList: (state) => state.postList,
+        postData: (state) => state.postData,
+    },
     mutations: {
         [Types.SET_USER_DATA](state, data) {
             state.userData = data
@@ -40,6 +49,22 @@ const store = createStore({
         [Types.SET_IS_ADMIN](state, data) {
             state.isAdmin = data
         },
+        [Types.ADD_POST](state, data) {
+            state.postList.push(data)
+        },
+        [Types.SET_POST](state, data) {
+            state.postList = data
+        },
+        [Types.SET_POST_DATA](state, data) {
+            state.postData = data
+        },
+        [Types.DEL_POST_DATA](state, id) {
+            const index = state.postList.map((item) => item.id).indexOf(id)
+            state.postList.splice(index, 1)
+        },
+        // [Types.UPDATE_POST_DATA](state, data) {
+        //     state.postData = data
+        // },
     },
     actions: {
         async SignUp(state, data) {
@@ -109,17 +134,101 @@ const store = createStore({
                 }
             }
         },
-        getPost() {
-            API.get('/posts')
-                .then((res) => {
-                    // console.log(res.data)
-                })
-                .catch((err) => {
-                    const error = err.response
-                    throw error.message
-
-                    return { status: error.status, message: error.message }
-                })
+        async addPost(state, data) {
+            try {
+                const res = await API.post('/posts', data)
+                state.commit(Types.ADD_POST, res.data)
+                alert('新增成功')
+                router.push({ name: 'Admin' })
+                // // state.commit(Types.SET_USER_TOKEN, res.data.accessToken)
+                // return { status: res.status, data: res.data }
+            } catch (err) {
+                if (err.response) {
+                    // The client was given an error response (5xx, 4xx)
+                    return err.response
+                } else if (err.request) {
+                    // The client never received a response, and the request was never left
+                    console.log(err.request)
+                } else {
+                    // Anything else
+                    console.log(err)
+                }
+            }
+        },
+        async getPosts(state) {
+            try {
+                const res = await API.get('/posts')
+                state.commit(Types.SET_POST, res.data)
+                // // state.commit(Types.SET_USER_TOKEN, res.data.accessToken)
+                // return { status: res.status, data: res.data }
+            } catch (err) {
+                if (err.response) {
+                    // The client was given an error response (5xx, 4xx)
+                    return err.response
+                } else if (err.request) {
+                    // The client never received a response, and the request was never left
+                    console.log(err.request)
+                } else {
+                    // Anything else
+                    console.log(err)
+                }
+            }
+        },
+        async getPost(state, id) {
+            try {
+                const res = await API.get('/posts', { params: { id: id } })
+                state.commit(Types.SET_POST_DATA, res.data)
+                return res.data[0]
+            } catch (err) {
+                if (err.response) {
+                    // The client was given an error response (5xx, 4xx)
+                    return err.response
+                } else if (err.request) {
+                    // The client never received a response, and the request was never left
+                    console.log(err.request)
+                } else {
+                    // Anything else
+                    console.log(err)
+                }
+            }
+        },
+        async delPost(state, id) {
+            try {
+                await API.delete('/posts/' + id)
+                state.commit(Types.DEL_POST_DATA, id)
+            } catch (err) {
+                if (err.response) {
+                    // The client was given an error response (5xx, 4xx)
+                    return err.response
+                } else if (err.request) {
+                    // The client never received a response, and the request was never left
+                    console.log(err.request)
+                } else {
+                    // Anything else
+                    console.log(err)
+                }
+            }
+        },
+        async editPost(state, data) {
+            try {
+                // const copyData = JSON.parse(JSON.stringify(data))
+                const id = data.id
+                delete data.id
+                const res = await API.put('/posts/' + id, data)
+                alert('更新成功!')
+                router.push({ name: 'Admin' })
+            } catch (err) {
+                if (err.response) {
+                    // The client was given an error response (5xx, 4xx)
+                    return err.response
+                } else if (err.request) {
+                    // The client never received a response, and the request was never left
+                    console.log(err.request)
+                } else {
+                    // Anything else
+                    console.log(err)
+                }
+            }
         },
         parseJwt(state, token) {
             console.log(token)
