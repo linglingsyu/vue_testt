@@ -209,12 +209,30 @@ const store = createStore({
                 }
             }
         },
+        async getCollectIdByPostId(state, postId) {
+            try {
+                const res = await API.get('/collect', { params: { postId: postId } })
+                // console.log(res.data)
+                if (res.data) return res.data[0]
+            } catch (err) {
+                if (err.response) {
+                    // The client was given an error response (5xx, 4xx)
+                    return err.response
+                } else if (err.request) {
+                    // The client never received a response, and the request was never left
+                    console.log(err.request)
+                } else {
+                    // Anything else
+                    console.log(err)
+                }
+            }
+        },
         async editPost(state, data) {
             try {
                 // const copyData = JSON.parse(JSON.stringify(data))
                 const id = data.id
                 delete data.id
-                const res = await API.put('/posts/' + id, data)
+                const res = await API.patch('/posts/' + id, data)
                 alert('更新成功!')
                 router.push({ name: 'Admin' })
             } catch (err) {
@@ -251,6 +269,13 @@ const store = createStore({
             localStorage.removeItem('USER_TOKEN')
             localStorage.removeItem('IS_ADMIN')
             // this.$router.push({ name: 'Login' })
+        },
+        getUserData() {
+            let data = localStorage.getItem('USER_DATA')
+            if (data) {
+                return JSON.parse(data)
+            }
+            return null
         },
     },
 })

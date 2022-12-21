@@ -31,6 +31,7 @@ export default {
     methods: {
         submit() {
             const data = {
+                collect: [],
                 title: this.title,
                 desc: this.desc,
                 url: this.url,

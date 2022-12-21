@@ -55,8 +55,8 @@ export default {
     },
     async created() {},
     async mounted() {
-        this.isLogin = await this.$store.dispatch('checkLoginStatus')
-        console.log(this.isLogin)
+        // this.isLogin = await this.$store.dispatch('checkLoginStatus')
+        // console.log(this.isLogin)
     },
     methods: {
         logout() {

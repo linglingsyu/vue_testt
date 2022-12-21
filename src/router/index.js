@@ -12,7 +12,7 @@ const routes = [
         name: 'Home',
         component: Home,
         meta: {
-            requiresAuth: true,
+            requiresAuth: false,
         },
     },
     {
@@ -45,9 +45,6 @@ const routes = [
         path: '/post/:id',
         name: 'Post',
         component: Post,
-        meta: {
-            requiresAuth: true,
-        },
     },
     {
         path: '/edit/:id',
