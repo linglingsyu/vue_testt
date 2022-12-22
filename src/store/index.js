@@ -25,6 +25,8 @@ const Types = {
     SET_POST: 'SET_POST',
     SET_POST_DATA: 'SET_POST_DATA',
     DEL_POST_DATA: 'DEL_POST_DATA',
+    SET_COLLECT_DATA: 'SET_COLLECT_DATA',
+    DEL_COLLECT_DATA: 'DEL_COLLECT_DATA',
 }
 
 const store = createStore({
@@ -34,10 +36,12 @@ const store = createStore({
         isAdmin: false,
         postList: [],
         postData: [],
+        collectData: [],
     },
     getters: {
         postList: (state) => state.postList,
         postData: (state) => state.postData,
+        collectData: (state) => state.collectData,
     },
     mutations: {
         [Types.SET_USER_DATA](state, data) {
@@ -62,9 +66,12 @@ const store = createStore({
             const index = state.postList.map((item) => item.id).indexOf(id)
             state.postList.splice(index, 1)
         },
-        // [Types.UPDATE_POST_DATA](state, data) {
-        //     state.postData = data
-        // },
+        [Types.SET_COLLECT_DATA](state, data) {
+            state.collectData = data
+        },
+        [Types.DEL_COLLECT_DATA](state) {
+            state.collectData = []
+        },
     },
     actions: {
         async SignUp(state, data) {
@@ -209,11 +216,46 @@ const store = createStore({
                 }
             }
         },
-        async getCollectIdByPostId(state, postId) {
+        async getCollect(state, data) {
             try {
-                const res = await API.get('/collect', { params: { postId: postId } })
-                // console.log(res.data)
-                if (res.data) return res.data[0]
+                const res = await API.get('/collect', { params: { postId: data.postId, userId: data.userId } })
+                state.commit(Types.SET_COLLECT_DATA, res.data)
+                return res.data
+            } catch (err) {
+                if (err.response) {
+                    // The client was given an error response (5xx, 4xx)
+                    return err.response
+                } else if (err.request) {
+                    // The client never received a response, and the request was never left
+                    console.log(err.request)
+                } else {
+                    // Anything else
+                    console.log(err)
+                }
+            }
+        },
+        async addCollect(state, data) {
+            try {
+                const res = await API.post('/collect', data)
+                state.commit(Types.SET_COLLECT_DATA, res.data)
+                // return { status: res.status, data: res.data }
+            } catch (err) {
+                if (err.response) {
+                    // The client was given an error response (5xx, 4xx)
+                    return err.response
+                } else if (err.request) {
+                    // The client never received a response, and the request was never left
+                    console.log(err.request)
+                } else {
+                    // Anything else
+                    console.log(err)
+                }
+            }
+        },
+        async deleteCollect(state, id) {
+            try {
+                await API.delete('/Collect/' + id)
+                state.commit(Types.DEL_COLLECT_DATA)
             } catch (err) {
                 if (err.response) {
                     // The client was given an error response (5xx, 4xx)
