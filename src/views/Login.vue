@@ -32,12 +32,9 @@ export default {
                 }
                 const res = await this.$store.dispatch('Login', data)
                 console.log(res)
-                // if (res.status === 200 || res.status === 201) {
-                //     alert('註冊成功！')
-                //     location.href = '/login'
-                // } else {
-                //     alert(res.data)
-                // }
+                if (res.status === 400) {
+                    alert(res.data)
+                }
             }
         },
     },

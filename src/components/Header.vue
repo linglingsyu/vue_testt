@@ -15,7 +15,7 @@
             </button>
             <div class="collapse navbar-collapse flex-grow-0" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item" v-if="!isLogin">
+                    <li class="nav-item" v-if="!LoginStatus">
                         <router-link class="nav-link" :to="{ name: 'Login' }">登入</router-link>
                         <!-- <a class="nav-link" href="/login">登入</a> -->
                     </li>
@@ -23,6 +23,9 @@
                         <!-- <li class="nav-item">
                             <a class="nav-link" href="">Hello !!</a>
                         </li> -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="/collect">收藏列表</a>
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#" @click.prevent="logout">登出</a>
                         </li>
@@ -49,18 +52,18 @@
 <script>
 export default {
     data() {
-        return {
-            isLogin: false,
-        }
+        return {}
     },
     async created() {},
-    async mounted() {
-        // this.isLogin = await this.$store.dispatch('checkLoginStatus')
-        // console.log(this.isLogin)
-    },
+    async mounted() {},
     methods: {
         logout() {
             this.$store.dispatch('logout')
+        },
+    },
+    computed: {
+        LoginStatus() {
+            return this.$store.state.isLogin
         },
     },
 }

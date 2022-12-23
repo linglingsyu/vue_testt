@@ -30,6 +30,11 @@
       "userId": 1,
       "postId": 3,
       "id": 1
+    },
+    {
+      "userId": 1,
+      "postId": 4,
+      "id": 2
     }
   ],
   "users": [
@@ -50,6 +55,12 @@
       "password": "$2a$10$1UMLB4VhFcHxAj53fSthMO6Bb8oH.WoM3.hTVZAQd9GEQSK9lAuIW",
       "role": "user",
       "id": 3
+    },
+    {
+      "email": "test@gmail",
+      "password": "$2a$10$bYQFczg1TBhE4wVO1LTc5ereDExh.kEs.Wr1dy.HLm9J.xjnbgdbG",
+      "role": "user",
+      "id": 4
     }
   ]
 }
