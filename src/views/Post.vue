@@ -2,7 +2,7 @@
     <div class="container py-3">
         <div class="mb-3" v-if="LoginStatus">
             <span> {{ collectData.length > 0 ? '已收藏' : '未收藏' }}</span>
-            <button class="btn btn-warning mx-3" @click="collectHandler">{{ collectData.length > 0 ? '取消收藏' : '加入收藏' }}</button>
+            <button class="btn mx-3" :class="[collectData.length > 0 ? 'btn-danger' : 'btn-warning']" @click="collectHandler">{{ collectData.length > 0 ? '取消收藏' : '加入收藏' }}</button>
         </div>
         <template v-if="postData">
             <img :src="postData.url" />

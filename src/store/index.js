@@ -2,9 +2,9 @@ import { createStore } from 'vuex'
 import router from '../router'
 
 import axios from 'axios'
-import { isTemplateNode } from '@vue/compiler-core'
+
 const API = axios.create({
-    baseURL: 'http://localhost:3000',
+    baseURL: 'https://vue-test-db.vercel.app/',
     headers: { 'Content-Type': 'application/json' },
 })
 
